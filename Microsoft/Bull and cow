@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int sl,gl,x=0,y=0;
+        string X,Y;
+        string ou;
+        sl = secret.length();
+    gl = guess.length();
+    for (int i = 0; i < gl; i++)
+    {
+        if (secret[i] == guess[i])
+            x++;
+    }
+    int sa[10] = {0}, ga[10] = {0};
+    for (int i = 0; i < sl; i++)
+    {
+        sa[(int)secret[i] - 48]++;
+        ga[(int)guess[i] - 48]++;
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        if (sa[i] > 0 || ga[i] > 0)
+        {
+            if (abs(sa[i] - ga[i]) >=1)
+                y = y + min(sa[i], ga[i]);
+            else if (sa[i] - ga[i] == 0)
+                y=y+sa[i];
+        }
+    }
+    y = y - x;
+    X = to_string(x);
+    Y = to_string(y);
+    ou = ou + X+"A"+Y+"B";
+    return ou;
+    }
+};
